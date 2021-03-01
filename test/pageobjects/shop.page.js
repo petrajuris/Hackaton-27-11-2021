@@ -1,27 +1,26 @@
-class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get searchField () { return $('#username') }
-    get searchButton () { return $('#password') }
-    get products () { return $('button[type="submit"]') }
+class ShopPage {
 
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    login (username, password) {
-        this.inputUsername.setValue(username);
-        this.inputPassword.setValue(password);
-        this.btnSubmit.click(); 
+    get searchField() { return $('#searchField') }
+    get searchButton() { return $('.searchButton') }
+
+    open() {
+        return browser.url('/shop/');
     }
 
-    /**
-     * overwrite specifc options to adapt it to page object
-     */
-    open () {
-        return super.open('login');
+    search(text) {
+        this.searchField.setValue(text);
+        this.searchButton.click();
     }
+
+    get products() {
+        return $$('.product').map((product) => {
+            return {
+                name: product.$('h3').getText(),
+                price: product.$('h4').getText()
+            }
+        });
+    }
+
 }
 
-module.exports = new LoginPage();
+module.exports = new ShopPage();
