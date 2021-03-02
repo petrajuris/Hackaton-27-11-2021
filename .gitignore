@@ -1,3 +1,6 @@
+./reports
+./screenshots/*
+
 # Logs
 logs
 *.log

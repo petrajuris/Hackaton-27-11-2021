@@ -10,8 +10,7 @@ describe('Vintage Hand Bags Shop', () => {
 
         const allCookies = browser.getCookies();
         console.log(allCookies);
-
-        browser.saveScreenshot('screenshots/shop_main.png');
+        browser.saveScreenshot('shop_main.png');
 
         browser.pause(5000);
         
