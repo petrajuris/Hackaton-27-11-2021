@@ -1,49 +1,67 @@
-const { getAllProducts } = require("../../pageobjects/shop.page");
+import {username, password} from '../fixtures.js'
 
-describe('Vintage Hand Bags Shop', () => {
+describe('Login Page - excercise 4', () => {
 
     beforeEach(() => {
-        browser.url('/shop/');
+        browser.reloadSession();
+        browser.url('/prihlaseni');
     });
 
-    it('should show 4 products by default with search enabled', () => {
-        
-        const searchField = $('#searchField');
-        expect(searchField).toBeDisplayed();
-        expect(searchField).toBeEnabled();
+    it('should show login page', () => {
 
-        const searchButton = $('.searchButton');
-        expect(searchButton).toBeDisplayed();
-        expect(searchButton).toBeEnabled();
+        const emailField = $('#email');
+        expect(emailField).toBeDisplayed();
+        expect(emailField).toBeEnabled();
 
-        const products = $$('.listing-product-name');
-        expect(products).toBeElementsArrayOfSize(4);
+        const passwordField = $('#password');
+        expect(passwordField).toBeDisplayed();
+        expect(passwordField).toBeEnabled();
+
+        const loginButton = $('.btn-primary');
+        expect(loginButton.getText()).toEqual('Přihlásit');
     });
 
-    it('all products should have name and price', () => {
-        
-        const products = $$('.product');
-        expect(products.length).toBeGreaterThan(0);
+    it('should login with valid credentials', () => {
+        $('#email').setValue(username);
+        $('#password').setValue(password);
+        $('.btn-primary').click();
+
+        expect($('h1').getText()).toEqual('Přihlášky');
+    });
     
-        products.forEach((product) => {
-            expect(product.$('h3').getText()).toMatch(/[a-zA-Z]{3,}/)
-            expect(product.$('h4').getText()).toMatch(/USD[0-9]+.[0-9]+.*/)
+});
+
+describe('Applications Page - excercise 4', () => {
+
+    beforeEach(() => {
+        browser.reloadSession();
+        browser.url('/prihlaseni');
+        $('#email').setValue(username);
+        $('#password').setValue(password);
+        $('.btn-primary').click();
+    });
+
+    it('should list all applications', () => {
+        const rows = $('.dataTable').$('tbody').$$('tr');
+        expect(rows).toBeElementsArrayOfSize(4);
+        rows.forEach(row => {
+            const cols = row.$$('td');
+            expect(cols[0].getText()).toMatch(/[a-zA-Z]{3,}/);
+            expect(cols[1].getText()).toMatch(/(Python|JavaScript|Automatizované testování)/);
+            expect(cols[2].getText()).toMatch(/(\d{2}.\d{2}.\d{4}|\d{2}.\d{2}. - \d{2}.\d{2}.\d{4})/);
+            expect(cols[3].getText()).toMatch(/\d{1,3}(| \d{0,3}) Kč/);
         });
     });
 
-
-    it('search search in products', () => {
-
-        const searchField = $('#searchField');
-        searchField.setValue('Retro');
-
-        const searchButton = $('.searchButton');
-        searchButton.click();
-
-        const products = $$('.listing-product-name');
-        products.forEach((product) => {
-            expect(product).toHaveTextContaining('Retro')
+    it('should filter in applications', () => {
+        const searchText = 'Novák';
+        $('input[type="search"]').setValue(searchText);
+        const filteredRows = $('.dataTable').$('tbody').$$('tr');
+        console.log('There are ' + filteredRows.length + ' filtered rows in the table');
+        filteredRows.forEach(row => {
+            const cols = row.$$('td');
+            expect(cols[0]).toHaveTextContaining(searchText);
         });
     });
-    
+
 });

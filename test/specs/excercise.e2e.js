@@ -1,9 +1,12 @@
+import {username, password} from './fixtures.js'
 
-describe('Vintage Hand Bags Shop', () => {
+describe('Czechitas Login Page', () => {
 
-    it('should open main shop page - excercise 1', () => {
+    it('should open login page', () => {
         
-        browser.url('/shop/');
+        browser.reloadSession();
+        
+        browser.url('/prihlaseni');
 
         browser.pause(5000);
         

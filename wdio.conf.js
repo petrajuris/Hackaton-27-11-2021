@@ -23,7 +23,7 @@ exports.config = {
     }],
     logLevel: 'warn',
     bail: 0,
-    baseUrl: 'https://czechitas-shopizer.azurewebsites.net',
+    baseUrl: 'ADRESA TESTOVANE APLIKACE',
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,

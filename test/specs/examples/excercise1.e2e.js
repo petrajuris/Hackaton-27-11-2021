@@ -1,16 +1,18 @@
 
-describe('Vintage Hand Bags Shop', () => {
+describe('Czechitas Login Page', () => {
 
-    it('should open main shop page - excercise 1', () => {
+    it('should open login - excercise 1', () => {
         
-        browser.url('/shop/');
+        browser.reloadSession();
+        
+        browser.url('/prihlaseni');
         
         const windowSize = browser.getWindowSize();
         console.log(windowSize);
 
         const allCookies = browser.getCookies();
         console.log(allCookies);
-        browser.saveScreenshot('shop_main.png');
+        browser.saveScreenshot('login_page.png');
 
         browser.pause(5000);
         
