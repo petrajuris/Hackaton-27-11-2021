@@ -23,10 +23,17 @@ describe('Login And Applications Page', () => {
         const loginButton = $('.btn-primary');
         console.log('Login button text: ' + loginButton.getText());
 
+        // výpis atributu href odkazu a zapomenuté heslo
+        const odkaz = $('form').$('a').getAttribute('href');
+        console.log('Odkaz na zapomenuté heslo: ' + odkaz);
+
         // přihlášení
         emailField.setValue(username);
         passwordField.setValue(password);
         loginButton.click();
+
+        // přechod na stránku s kurzy
+        $('=Přihlášky').click();
 
         // výpis přihlášených kurzů
         const rows = $('.dataTable').$('tbody').$$('tr')

@@ -24,10 +24,17 @@ describe('Login And Applications Page', () => {
         // nebo
         // expect(loginButton).toHaveTextContaining('Přihlásit')
 
+        // výpis atributu href odkazu a zapomenuté heslo
+        const odkaz = $('form').$('a').getAttribute('href');
+        expect(odkaz).toEqual(browser.options.baseUrl + '/zapomenute-heslo')
+
         // přihlášení
         emailField.setValue(username);
         passwordField.setValue(password);
         loginButton.click();
+
+        // přechod na stránku s kurzy
+        $('=Přihlášky').click();
 
         // výpis přihlášených kurzů
         const rows = $('.dataTable').$('tbody').$$('tr')

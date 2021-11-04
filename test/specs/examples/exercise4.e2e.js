@@ -39,9 +39,10 @@ describe('Applications Page - excercise 4', () => {
         $('#email').setValue(username);
         $('#password').setValue(password);
         $('.btn-primary').click();
+        $('=Přihlášky').click();
     });
 
-    it('should list all applications', () => {
+    it('should list all applications', () => {    
         const rows = $('.dataTable').$('tbody').$$('tr');
         expect(rows).toBeElementsArrayOfSize(4);
         rows.forEach(row => {
