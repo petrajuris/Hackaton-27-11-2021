@@ -23,8 +23,8 @@ describe('Three foxes Login Page', () => {
         $('#user_info_acc').click();
         browser.pause(2000);
         $('=Logout').click();
-        const logout = $('#user_info_acc')
-       expect(logout.getText()).toEqual('Sign in');
+        const login = $('.user_login')
+        expect(login.getText()).toEqual('Sign in');
     });
    
 });
